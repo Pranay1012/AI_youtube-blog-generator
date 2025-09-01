@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}Generate Blog - AI Blog Generator{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <!-- Hero Section -->
+    <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">
+            Transform YouTube Videos into Blog Posts
+        </h1>
+        <p class="text-gray-600 text-lg">
+            Paste any YouTube URL and our AI will create a professional blog article for you
+        </p>
+    </div>
+
+    <!-- Form -->
+    <div class="bg-white rounded-lg shadow-lg p-8">
+        <form id="generateForm" method="POST" class="space-y-6">
+            {% csrf_token %}
+            
+            <div>
+                <label for="youtubeUrl" class="block text-sm font-medium text-gray-700 mb-2">
+                    YouTube Video URL
+                </label>
+                <input 
+                    type="url" 
+                    id="youtubeUrl" 
+                    name="youtube_link" 
+                    required
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+                    placeholder="https://www.youtube.com/watch?v=example"
+                >
+            </div>
+            
+            <!-- Submit Button -->
+            <button 
+                type="submit" 
+                id="submitBtn"
+                class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition duration-200 shadow-lg"
+            >
+                <span id="buttonText">Generate Blog Post</span>
+                <span id="buttonSpinner" class="hidden">
+                    <div class="spinner inline-block mr-2"></div>
+                    Processing...
+                </span>
+            </button>
+        </form>
+
+        <!-- Loading Message -->
+        <div id="loadingMessage" class="hidden mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+            <div class="flex items-center">
+                <div class="spinner mr-3"></div>
+                <div>
+                    <p class="text-blue-800 font-medium">Processing your video...</p>
+                    <p class="text-blue-600 text-sm">This may take several minutes depending on video length</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feature Cards -->
+    <div class="grid md:grid-cols-3 gap-6 mt-12">
+        <div class="bg-white p-6 rounded-lg shadow text-center">
+            <div class="text-3xl mb-4">🎥</div>
+            <h3 class="font-semibold mb-2">Any YouTube Video</h3>
+            <p class="text-gray-600 text-sm">Works with educational, entertainment, news, and tutorial videos(Length 15 minutes)</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow text-center">
+            <div class="text-3xl mb-4">🤖</div>
+            <h3 class="font-semibold mb-2">AI-Powered</h3>
+            <p class="text-gray-600 text-sm">Uses advanced AI to create structured, professional and readable blog posts</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow text-center">
+            <div class="text-3xl mb-4">⚡</div>
+            <h3 class="font-semibold mb-2">Fast & Free</h3>
+            <p class="text-gray-600 text-sm">Single click login and free to use</p>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('generateForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const buttonText = document.getElementById('buttonText');
+    const buttonSpinner = document.getElementById('buttonSpinner');
+    const loadingMessage = document.getElementById('loadingMessage');
+
+    form.addEventListener('submit', function(e) {
+        // Show loading state
+        submitBtn.disabled = true;
+        buttonText.classList.add('hidden');
+        buttonSpinner.classList.remove('hidden');
+        loadingMessage.classList.remove('hidden');
+        
+        // Scroll to loading message
+        loadingMessage.scrollIntoView({ behavior: 'smooth' });
+    });
+});
+</script>
+{% endblock %}

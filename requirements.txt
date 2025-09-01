@@ -1,0 +1,19 @@
+# Core Django framework
+Django==4.2.7
+
+# YouTube downloading
+pytubefix==6.9.2
+
+# AI Models (Python 3.13 compatible versions)
+faster-whisper==0.10.0
+transformers==4.35.2
+torch
+torchvision
+torchaudio
+
+# Updated supporting libraries (no version pinning for compatibility)
+numpy
+requests
+tokenizers
+safetensors
+huggingface-hub
